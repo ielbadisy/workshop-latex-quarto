@@ -1,6 +1,6 @@
 ---
 title: "Survival Analysis"
-subtitle: "From the Same `.qmd` Source — Now as Slides"
+subtitle: "From the Same `.qmd` Source - Now as Slides"
 author: "Imad El Badisy"
 date: today
 format:
@@ -40,7 +40,7 @@ library(kableExtra)
 
 - Survival data arise in clinical trials, epidemiology, economics
 - Outcome: time until an event (death, relapse, failure)
-- Key challenge: **censoring** — some subjects do not experience
+- Key challenge: **censoring** - some subjects do not experience
   the event during follow-up
 
 . . .
@@ -163,7 +163,7 @@ These results replicate the classic findings from the NCCTG study.
 ## Take-Home Messages
 
 1. Quarto renders the **same `.qmd` file** to PDF, HTML, and slides
-2. Code + prose stay together — no copy-paste
+2. Code + prose stay together - no copy-paste
 3. All numbers, figures, and tables update on re-render
 4. Switch output format by changing one line in the YAML
 

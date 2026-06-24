@@ -33,7 +33,7 @@ library(kableExtra)
 
 This document demonstrates Quarto's cross-referencing system.
 Every figure, table, equation, and section can be referenced
-by a label — and all references update automatically.
+by a label - and all references update automatically.
 
 The dataset is described in @sec-data.
 The statistical model is given in @eq-cox.
