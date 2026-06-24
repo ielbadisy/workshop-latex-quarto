@@ -1,0 +1,19 @@
+---
+title: "Home"
+---
+
+## Welcome
+
+This is a minimal Quarto website for the lecture.
+
+Use it to teach:
+
+- project structure
+- shared `_quarto.yml`
+- navigation
+- site rendering
+
+```bash
+quarto render demos/quarto-lecture/03-website
+```
+

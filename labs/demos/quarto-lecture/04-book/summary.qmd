@@ -1,0 +1,10 @@
+# Summary
+
+Use books for:
+
+- lecture notes
+- theses
+- manuals
+- multi-chapter reports
+- e-books
+

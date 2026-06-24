@@ -1,0 +1,128 @@
+---
+title: "Survival Analysis Report"
+subtitle: "A Live Quarto Demo"
+author: "Imad El Badisy"
+date: today
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    pdf-engine: xelatex
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{amsmath}
+  html:
+    toc: true
+    theme: cosmo
+    code-fold: true
+    code-tools: true
+execute:
+  echo: true
+  warning: false
+  message: false
+bibliography: refs.bib
+---
+
+```{r setup}
+library(survival)
+library(ggplot2)
+library(kableExtra)
+```
+
+## Introduction
+
+This document demonstrates how Quarto integrates **code**, **prose**,
+and **mathematics** in a single reproducible file.
+
+The dataset contains `r nrow(lung)` patients from the North Central
+Cancer Treatment Group lung cancer study.
+A total of `r sum(lung$status == 2, na.rm = TRUE)` deaths were
+observed over the follow-up period.
+
+We use the Cox proportional hazards model [@cox1972]:
+
+$$
+h(t \mid \mathbf{x}) = h_0(t) \exp(\mathbf{x}^\top \boldsymbol{\beta})
+$$ {#eq-cox}
+
+## Descriptive Statistics
+
+@tbl-desc shows the baseline characteristics of the study population.
+
+```{r}
+#| label: tbl-desc
+#| tbl-cap: "Baseline characteristics of lung cancer patients."
+
+df <- lung |>
+  dplyr::summarise(
+    n           = dplyr::n(),
+    age_mean    = round(mean(age, na.rm = TRUE), 1),
+    age_sd      = round(sd(age, na.rm = TRUE), 1),
+    pct_male    = round(mean(sex == 1, na.rm = TRUE) * 100, 1),
+    pct_events  = round(mean(status == 2, na.rm = TRUE) * 100, 1)
+  )
+
+data.frame(
+  Characteristic = c("Sample size", "Age, mean (SD)",
+                     "Male sex, %", "Deaths, %"),
+  Value = c(df$n,
+            paste0(df$age_mean, " (", df$age_sd, ")"),
+            paste0(df$pct_male, "%"),
+            paste0(df$pct_events, "%"))
+) |>
+  kable(booktabs = TRUE, col.names = c("Characteristic", "Value")) |>
+  kable_styling(latex_options = "hold_position")
+```
+
+## Kaplan-Meier Estimate
+
+@fig-km displays the overall Kaplan-Meier survival curve.
+
+```{r}
+#| label: fig-km
+#| fig-cap: "Kaplan-Meier estimate of overall survival."
+#| fig-width: 6
+#| fig-height: 4
+
+km <- survfit(Surv(time, status == 2) ~ 1, data = lung)
+
+plot(km,
+     xlab = "Days", ylab = "Survival probability",
+     conf.int = TRUE, col = "#0072B2", lwd = 2)
+abline(h = 0.5, lty = 2, col = "grey50")
+```
+
+The median survival was **`r round(summary(km)$table["median"])`** days
+(95% CI: `r round(summary(km)$table["0.95LCL"])` --
+`r round(summary(km)$table["0.95UCL"])` days).
+
+## Cox Regression
+
+```{r}
+#| label: tbl-cox
+#| tbl-cap: "Cox proportional hazards model results."
+
+fit <- coxph(Surv(time, status == 2) ~ age + sex + ph.ecog,
+             data = lung)
+
+broom::tidy(fit, exponentiate = TRUE, conf.int = TRUE) |>
+  dplyr::mutate(dplyr::across(where(is.numeric), \(x) round(x, 3))) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Term", "HR", "Std. Error", "z", "p-value",
+                  "95% CI Low", "95% CI High")
+  ) |>
+  kable_styling(latex_options = c("hold_position", "scale_down"))
+```
+
+## Conclusion
+
+Quarto renders this document to PDF and HTML from the same source.
+The analysis is fully reproducible: change the data → re-render →
+all numbers, figures, and tables update automatically.
+
+## References {.unnumbered}
+
+::: {#refs}
+:::

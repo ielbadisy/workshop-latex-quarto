@@ -1,0 +1,15 @@
+---
+title: "Analysis"
+---
+
+## Small Analysis Page
+
+```{r}
+#| label: fig-site-pressure
+#| fig-cap: "Pressure data rendered inside a website."
+#| echo: false
+
+plot(pressure, pch = 19, col = "#2ca02c",
+     xlab = "Temperature", ylab = "Pressure")
+```
+

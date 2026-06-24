@@ -1,0 +1,26 @@
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.spl
+*.Rhistory
+
+# Quarto / R generated
+_site/
+_book/
+_output/
+*_files/
+.quarto/
+*.freeze/
+
+# Large rendered outputs (keep source, not generated)
+# Comment out if you want to keep PDFs
+# *.pdf

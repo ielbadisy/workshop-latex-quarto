@@ -1,0 +1,161 @@
+% ============================================================
+% DEMO 2 — Mathematical notation for statistics
+% Live demo: show custom commands, environments, aligned eq
+%
+% Compile with:  xelatex math.tex
+% ============================================================
+
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+
+% ----- Custom commands (define once, use everywhere) -----
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\iid}{\overset{\text{iid}}{\sim}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\given}{\mid}
+
+% ----- Theorem environments -----
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{Mathematical Notation for Statistics}
+\author{Imad El Badisy}
+\date{\today}
+
+% ============================================================
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ----- Scalars, vectors, matrices -----
+\section{Notation Conventions}
+
+We use the following conventions throughout:
+
+\begin{itemize}
+  \item Scalars: $x$, $\mu$, $\sigma^2$ (lowercase italic)
+  \item Vectors: $\mathbf{x}$, $\boldsymbol{\beta}$ (bold lowercase)
+  \item Matrices: $\mathbf{X}$, $\boldsymbol{\Sigma}$ (bold uppercase)
+  \item Sets: $\mathcal{X}$, $\mathcal{F}$ (calligraphic)
+  \item Random variables: $X$, $Y$ (uppercase italic)
+\end{itemize}
+
+% ----- Probability -----
+\section{Probability and Expectation}
+
+Let $X$ and $Y$ be random variables on a probability
+space $(\Omega, \mathcal{F}, \Pr)$.
+
+\begin{align}
+  \E[X]        &= \int x \, f(x) \, dx                    \\
+  \Var(X)      &= \E\left[(X - \E[X])^2\right]            \\
+  \Cov(X, Y)   &= \E\left[(X - \E[X])(Y - \E[Y])\right]
+\end{align}
+
+We write $X_1, \ldots, X_n \iid N(\mu, \sigma^2)$ to mean
+that the $X_i$ are independent and identically distributed.
+
+% ----- Statistical models -----
+\section{Statistical Models}
+
+\subsection{Linear Model}
+
+\begin{equation}
+  \mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+  \qquad
+  \boldsymbol{\varepsilon} \sim N(\mathbf{0}, \sigma^2 \mathbf{I}_n)
+  \label{eq:lm}
+\end{equation}
+
+The OLS estimator minimizes
+$\norm{\mathbf{y} - \mathbf{X}\boldsymbol{\beta}}^2$:
+
+\begin{equation}
+  \hat{\boldsymbol{\beta}}
+    = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}
+\end{equation}
+
+\subsection{Logistic Regression}
+
+For a binary outcome $Y_i \in \{0,1\}$:
+
+\begin{equation}
+  \log \frac{p_i}{1 - p_i}
+    = \mathbf{x}_i^\top \boldsymbol{\beta},
+  \qquad
+  p_i = \Pr(Y_i = 1 \given \mathbf{x}_i)
+\end{equation}
+
+\subsection{Cox Proportional Hazards}
+
+\begin{equation}
+  h(t \given \mathbf{x})
+    = h_0(t) \exp\!\left(\mathbf{x}^\top \boldsymbol{\beta}\right)
+  \label{eq:cox}
+\end{equation}
+
+where $h_0(t)$ is the unspecified baseline hazard.
+
+% ----- Likelihood -----
+\section{Likelihood and Information}
+
+The log-likelihood is:
+
+\begin{equation}
+  \ell(\boldsymbol{\theta})
+    = \sum_{i=1}^{n} \log f(y_i \given \mathbf{x}_i, \boldsymbol{\theta})
+\end{equation}
+
+The Fisher information matrix is:
+
+\begin{equation}
+  \mathcal{I}(\boldsymbol{\theta})
+    = -\E\!\left[
+        \frac{\partial^2 \ell(\boldsymbol{\theta})}
+             {\partial \boldsymbol{\theta} \, \partial \boldsymbol{\theta}^\top}
+      \right]
+\end{equation}
+
+% ----- Theorems -----
+\section{Theorem Environments}
+
+\begin{definition}[Unbiased estimator]
+  An estimator $\hat{\theta}$ is \emph{unbiased} if
+  $\E[\hat{\theta}] = \theta$ for all $\theta$.
+\end{definition}
+
+\begin{theorem}[Cramér-Rao lower bound]
+  \label{thm:crlb}
+  For any unbiased estimator $\hat{\theta}$ of a scalar
+  parameter $\theta$,
+  \begin{equation}
+    \Var(\hat{\theta}) \geq \frac{1}{\mathcal{I}(\theta)}
+  \end{equation}
+  where $\mathcal{I}(\theta)$ is the Fisher information.
+\end{theorem}
+
+\begin{proof}
+  Apply the Cauchy-Schwarz inequality to
+  $\Cov\!\left(\hat{\theta}, \partial_\theta \log f(X;\theta)\right)$.
+  The score has mean zero and variance $\mathcal{I}(\theta)$,
+  which gives the result.
+\end{proof}
+
+\begin{corollary}
+  The OLS estimator in \eqref{eq:lm} is the minimum-variance
+  unbiased linear estimator (Gauss-Markov theorem).
+\end{corollary}
+
+\end{document}

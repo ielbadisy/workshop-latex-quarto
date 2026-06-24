@@ -1,0 +1,79 @@
+% ============================================================
+% DEMO 4 — Bibliography with biblatex + biber
+% Live demo: add citations, render bibliography, change styles
+%
+% Compile with:
+%   xelatex paper.tex
+%   biber paper
+%   xelatex paper.tex
+%   xelatex paper.tex
+% ============================================================
+
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage[style=apa, backend=biber]{biblatex}
+\usepackage[colorlinks=true, citecolor=blue]{hyperref}
+
+\addbibresource{refs.bib}
+
+% ----- Try changing the style above to: -----
+%   style=numeric          (numbered references)
+%   style=authoryear       (author-year, like natbib)
+%   style=vancouver        (medical journals)
+%   style=nature           (Nature journals)
+
+\title{Bibliography Demo: Survival Analysis}
+\author{Imad El Badisy}
+\date{\today}
+
+% ============================================================
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+The Cox proportional hazards model \parencite{cox1972} is the
+most widely used method for survival analysis.
+The Kaplan-Meier estimator \parencite{kaplan1958} provides a
+non-parametric estimate of the survival function.
+
+Machine learning methods for survival analysis are reviewed
+in \textcite{hastie2009}.
+Model discrimination is typically assessed using
+Harrell's concordance index \parencite{harrell1982}.
+
+\section{Methods}
+
+We follow the notation of \textcite{kalbfleisch2002}.
+The Cox model specifies:
+
+\begin{equation}
+  h(t \mid \mathbf{x})
+    = h_0(t) \exp(\mathbf{x}^\top \boldsymbol{\beta})
+\end{equation}
+
+Multiple citations: \parencite{cox1972, kaplan1958, harrell1982}.
+
+\section{Citation Commands}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Useful biblatex citation commands.}
+  \begin{tabular}{ll}
+    \toprule
+    Command                   & Output example              \\
+    \midrule
+    \verb|\textcite{cox1972}| & \textcite{cox1972}          \\
+    \verb|\parencite{cox1972}| & \parencite{cox1972}        \\
+    \verb|\citeauthor{cox1972}| & \citeauthor{cox1972}      \\
+    \verb|\citeyear{cox1972}|  & \citeyear{cox1972}         \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\printbibliography
+
+\end{document}

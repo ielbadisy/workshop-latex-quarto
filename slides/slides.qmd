@@ -1,0 +1,869 @@
+---
+title: "From \\LaTeX{} to Quarto"
+subtitle: "Scientific Writing, Reproducible Publishing, and Beyond"
+author: "Imad El Badisy"
+date: today
+format:
+  beamer:
+    theme: Madrid
+    colortheme: crane
+    fonttheme: professionalfonts
+    slide-level: 2
+    toc: true
+    toc-title: "Workshop Outline"
+    toc-depth: 1
+    number-sections: true
+    pdf-engine: xelatex
+    keep-tex: false
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{amsmath, amssymb}
+        \usepackage{listings}
+        \usepackage{xcolor}
+        \usepackage{tikz}
+        \usetikzlibrary{arrows.meta, shapes.geometric, positioning}
+        \setbeamertemplate{navigation symbols}{}
+        \setbeamerfont{frametitle}{size=\normalsize, series=\bfseries}
+        \definecolor{codeblue}{RGB}{30, 100, 200}
+        \definecolor{codegreen}{RGB}{0, 130, 80}
+        \lstset{
+          basicstyle=\ttfamily\scriptsize,
+          keywordstyle=\color{codeblue},
+          breaklines=true,
+          columns=fullflexible
+        }
+execute:
+  echo: true
+  eval: false
+  warning: false
+  message: false
+bibliography: refs/references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE,
+                      fig.align = "center", out.width = "80%")
+```
+
+
+# Part 1 — Scientific Writing with \LaTeX{}
+
+## 1. A Brief History
+
+::: {.columns}
+::: {.column width="28%"}
+![](figures/latex-logo.png){width=95%}
+:::
+::: {.column width="36%"}
+**\TeX{} — D. Knuth, 1978**
+
+- Underlying engine, still used today
+- Deterministic, reproducible output
+
+**\LaTeX{} — L. Lamport, 1984**
+
+- Macro layer on top of \TeX{}
+- Separates content from formatting
+- Became the standard for scientific writing
+:::
+::: {.column width="36%"}
+| Year | Event |
+|---|---|
+| 1978 | \TeX{} released |
+| 1984 | \LaTeX{} 2.09 |
+| 1994 | \LaTeX{}2e (current) |
+| 1999 | pdf\TeX{} → direct PDF |
+| 2004 | Xe\TeX{} → Unicode |
+| 2007 | Lua\TeX{} → scripting |
+| 2012 | Overleaf launched |
+:::
+:::
+
+## 2. \LaTeX{} ≠ Overleaf
+
+For many students, **Overleaf = LaTeX** — but they are not the same thing.
+
+::: {.columns}
+::: {.column width="36%"}
+![](figures/latex-info.png){width=85%}
+:::
+::: {.column width="32%"}
+**\LaTeX{} (1984)**
+
+- A typesetting *language + compiler*
+- Runs anywhere: machine, server, cloud
+- Free and open source
+- Works offline in any editor
+:::
+::: {.column width="32%"}
+**Overleaf (2012)**
+
+- A *web app* built on top of \LaTeX{}
+- Runs the compiler on their servers
+- Adds: browser UI, collaboration, cloud storage
+- You are still writing \LaTeX{}
+:::
+:::
+
+\medskip
+**Analogy:** \LaTeX{} is the engine. Overleaf is the car. Swap the car — the engine stays the same.
+
+## 3. Why \LaTeX{}?
+
+::: {.columns}
+::: {.column width="50%"}
+**The problem with Word**
+
+- Copy-paste figures from R → manual update on every change
+- `final_v3_FINAL_revised.docx`
+- Math typesetting is painful
+
+**\LaTeX{} advantages**
+
+- Precise, professional typesetting
+- Native math support
+- Dominant in stats / math / physics journals
+- Plain text → version control with Git
+:::
+::: {.column width="50%"}
+| Feature | Word | \LaTeX{} |
+|---|---|---|
+| Typesetting | Medium | Excellent |
+| Math | Poor | Native |
+| Figure placement | Manual | Algorithmic |
+| Bibliography | Plugin | Built-in |
+| Version control | Hard | Easy |
+| Journal templates | Limited | Extensive |
+
+**Use \LaTeX{} for:** thesis, journal articles, technical reports with equations.
+:::
+:::
+
+## 4. Where to Write \LaTeX{} — Platforms
+
+::: {.columns}
+::: {.column width="55%"}
+| Platform | Type | Best for |
+|---|---|---|
+| **Prism** (OpenAI) | Browser | Beginners + AI writing |
+| **Overleaf** | Browser | Collaboration |
+| **TeXStudio** | Desktop | Full-featured editor |
+| **VS Code** + LaTeX Workshop | Desktop | Programmers / Git |
+| **TeXmaker** | Desktop | Lightweight editor |
+| **RStudio** | Desktop | R users |
+
+\medskip
+**Recommendation:** beginners → Prism or Overleaf; advanced → VS Code + Git.
+:::
+::: {.column width="45%"}
+![](figures/prism-screenshot.png){width=100%}
+
+\small Free \LaTeX{} workspace with GPT-5.2 integrated for writing and debugging.
+:::
+:::
+
+## 5. Why Document Classes?
+
+`\documentclass` is the first decision — it sets the layout, section hierarchy, and all defaults.
+
+::: {.columns}
+::: {.column width="50%"}
+| Class | Use |
+|---|---|
+| `article` | Papers, short reports |
+| `report` | Theses, longer reports |
+| `book` | Books, front/back matter |
+| `beamer` | Slides |
+| `elsarticle` | Elsevier journals |
+| `IEEEtran` | IEEE journals |
+
+**Why it matters:** `\section{}` renders differently across classes. Always start from the journal's `.cls` file.
+:::
+::: {.column width="50%"}
+```latex
+% Generic paper
+\documentclass[12pt]{article}
+
+% Two-column journal
+\documentclass[twocolumn]{article}
+
+% Elsevier submission
+\documentclass{elsarticle}
+
+% Slide deck
+\documentclass{beamer}
+\usetheme{Madrid}
+```
+
+The class file controls everything — margins, fonts, title format, header/footer.
+:::
+:::
+
+## 6. Document Structure
+
+```latex
+\documentclass[12pt, a4paper]{article}   % (1) class
+
+% (2) Preamble — packages and settings
+\usepackage{amsmath, amssymb}   % math
+\usepackage{graphicx}           % figures
+\usepackage{booktabs}           % tables
+\usepackage{hyperref}           % links
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+\title{My Paper}
+\author{Author Name}
+\date{\today}
+
+% (3) Body
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+Text here. Cite with \parencite{cox1972}.
+
+\printbibliography
+\end{document}
+```
+
+## 7. How to Compile
+
+::: {.columns}
+::: {.column width="52%"}
+![](figures/latex-engines.png){width=100%}
+:::
+::: {.column width="48%"}
+```bash
+# pdflatex (most common)
+pdflatex paper.tex
+biber paper        # bibliography
+pdflatex paper.tex # 2nd pass: refs
+
+# xelatex (Unicode + fonts)
+xelatex paper.tex
+
+# latexmk (recommended)
+# automates all passes
+latexmk -xelatex paper.tex
+```
+
+\medskip
+**Run at least twice** — cross-references are resolved on the second pass.
+
+**Overleaf** handles this automatically.
+:::
+:::
+
+## 8. Mathematical Notation
+
+::: {.columns}
+::: {.column width="52%"}
+**Inline:** `$\hat{\beta} = 0.42$` → $\hat{\beta} = 0.42$
+
+**Display:**
+```latex
+\begin{equation}
+  \hat{\beta} = (X^\top X)^{-1}X^\top y
+\end{equation}
+```
+
+**Aligned:**
+```latex
+\begin{align}
+  \ell(\theta) &= \sum_{i=1}^n \log f(y_i \mid \theta) \\
+  \hat{\theta} &= \arg\max_\theta \ell(\theta)
+\end{align}
+```
+
+**Custom commands** (define once):
+```latex
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\iid}{\overset{iid}{\sim}}
+```
+:::
+::: {.column width="48%"}
+| Symbol | \LaTeX{} |
+|---|---|
+| $\sum$ | `\sum` |
+| $\prod$ | `\prod` |
+| $\int$ | `\int` |
+| $\hat{\theta}$ | `\hat{\theta}` |
+| $\alpha, \beta$ | `\alpha, \beta` |
+| $\mathbb{E}[X]$ | `\mathbb{E}[X]` |
+| $\leq, \geq$ | `\leq, \geq` |
+| $\in, \notin$ | `\in, \notin` |
+| $\sim$ | `\sim` |
+| $X^\top$ | `X^\top` |
+
+**Demo →** `demos/latex/02-math/`
+:::
+:::
+
+## 9. Diagrams — TikZ and Alternatives
+
+::: {.columns}
+::: {.column width="50%"}
+**TikZ** — standard \LaTeX{} diagram package
+
+```latex
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+\begin{tikzpicture}[node distance=1cm,
+  box/.style={draw, rounded corners,
+    fill=blue!8, minimum width=2.8cm}]
+  \node[box] (A) {Inclusion};
+  \node[box, below=of A] (B) {Eligible};
+  \node[box, below=of B] (C) {Analysis};
+  \draw[->] (A)--(B); \draw[->] (B)--(C);
+\end{tikzpicture}
+```
+
+Other uses: DAGs, survival trees, neural nets, timelines.
+:::
+::: {.column width="50%"}
+**Alternatives in R / Quarto**
+
+| Tool | Best for |
+|---|---|
+| **DiagrammeR** | Flowcharts, networks |
+| **ggdag** | Causal DAGs |
+| **ggraph** | Graph visualization |
+| **Mermaid** | Quick diagrams in `.qmd` |
+
+**Mermaid — no package needed:**
+
+````markdown
+```{mermaid}
+flowchart LR
+  A[Write] --> B{Error?}
+  B -- yes --> C[Fix]
+  C --> B
+  B -- no --> D[Output]
+```
+````
+:::
+:::
+
+## 10. Debugging with AI Coding Agents
+
+Modern AI agents (Claude, Codex, GitHub Copilot, Cursor) accelerate \LaTeX{} and Quarto debugging.
+
+**What to give the agent:**
+
+1. The **exact error message** from the terminal or log
+2. The **minimal code block** that triggers the error
+3. The **context**: document class, relevant packages, what you expected
+
+**Effective prompt:**
+
+```
+I am writing LaTeX with \documentclass{article} and \usepackage{amsmath}.
+The following snippet fails to compile:
+
+  \begin{align}
+    y = x^2
+  \end{align*}
+
+Error: "Extra \begin{align}."
+What is wrong and how do I fix it?
+```
+
+**Key rule:** never paste the entire document — isolate the failing block first.
+
+## 11. AI-Assisted Debugging Workflow
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.6cm,
+  box/.style={
+    rectangle, rounded corners=4pt,
+    draw=gray!70, fill=blue!7,
+    minimum width=4.2cm, minimum height=0.65cm,
+    align=center, font=\small
+  },
+  dec/.style={
+    diamond, aspect=2.8,
+    draw=orange!80, fill=orange!12,
+    align=center, font=\small, inner sep=2pt
+  },
+  arr/.style={-{Stealth[length=5pt]}, thick, gray!60}
+]
+\node[box]  (write)   {Write \LaTeX{} / Quarto};
+\node[box,  below=of write]   (compile) {Compile};
+\node[dec,  below=of compile] (err)     {Error?};
+\node[box,  below=of err]     (copy)    {Copy error + minimal snippet};
+\node[box,  below=of copy]    (agent)   {AI Agent (Claude / Codex / Copilot)};
+\node[box,  below=of agent]   (fix)     {Apply suggested fix};
+\node[box,  right=2.4cm of err] (out)   {Final Output};
+\draw[arr] (write)   -- (compile);
+\draw[arr] (compile) -- (err);
+\draw[arr] (err)     -- node[left,  font=\footnotesize]{yes} (copy);
+\draw[arr] (copy)    -- (agent);
+\draw[arr] (agent)   -- (fix);
+\draw[arr] (fix.west) -- ++(-1.3,0) |- (compile.west);
+\draw[arr] (err)     -- node[above, font=\footnotesize]{no}  (out);
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+{\small\textbf{Demo →} \texttt{demos/latex/} — 01-minimal, 02-math, 03-template, 04-bibliography}
+```
+
+
+# Part 2 — Quarto for Reproducible Publishing
+
+## 12. From \LaTeX{} to Quarto — Why?
+
+::: {.columns}
+::: {.column width="60%"}
+| \LaTeX{} | Quarto |
+|---|---|
+| Excellent typesetting | Same \LaTeX{} engine underneath |
+| Manual copy-paste of results | Results computed inside the document |
+| One output format | HTML, PDF, slides, website, book |
+| Text only | Code + text unified |
+| Steep learning curve | Markdown + YAML + code |
+
+\medskip
+**Quarto = \LaTeX{} quality + reproducible code + multiple outputs from one source**
+:::
+::: {.column width="40%"}
+![](figures/rmarkdown-logo.png){width=44%}\ ![](figures/quarto-logo.png){width=44%}
+
+\small R Markdown (2012) was the predecessor. Quarto (2022) is the successor — multi-language, multi-output.
+:::
+:::
+
+## 13. What Quarto Solves
+
+Quarto turns one plain-text `.qmd` source into many publishable outputs.
+
+| Need | Output format |
+|---|---|
+| Web report / dashboard | HTML |
+| Submission / print | PDF (via \LaTeX{}) |
+| Lecture slides | RevealJS (browser) or Beamer (PDF) |
+| Course or research site | Website |
+| Thesis / textbook | Book → HTML + PDF + EPUB |
+| Repeated journal format | Template / extension |
+
+**One source file → many targets. No copy-paste.**
+
+## 14. Engines, Compilers and Install
+
+::: {.columns}
+::: {.column width="55%"}
+**Render pipeline:**
+
+```
+.qmd → knitr (R) ──┐
+                   ├→ .md → Pandoc → HTML / docx
+.qmd → jupyter ───┘              └→ xelatex → PDF
+```
+
+| Layer | Tool | Role |
+|---|---|---|
+| Computation | `knitr` / `jupyter` | Run code, embed output |
+| Markdown → HTML | Pandoc | Convert markup |
+| Markdown → PDF | `xelatex` | Compile \LaTeX{} |
+| Orchestrator | Quarto CLI | Ties all layers |
+:::
+::: {.column width="45%"}
+**Install check:**
+
+```bash
+quarto --version
+quarto check       # diagnose engines
+```
+
+**Render commands:**
+
+```bash
+quarto render report.qmd
+quarto render report.qmd --to pdf
+quarto render report.qmd --to html
+quarto preview report.qmd  # live
+```
+
+`quarto check` shows which engines are installed and working.
+:::
+:::
+
+## 15. File Anatomy
+
+Every `.qmd` file has three layers:
+
+::: {.columns}
+::: {.column width="50%"}
+```yaml
+---
+title: "My Report"        # YAML
+author: "Student Name"
+format:
+  html:
+    toc: true
+    code-fold: true
+  pdf:
+    number-sections: true
+execute:
+  warning: false
+bibliography: refs.bib
+---
+```
+:::
+::: {.column width="50%"}
+```markdown
+## Introduction    ← Markdown body
+
+This is **bold** and *italic*.
+
+- First item
+- Second item
+```
+
+````markdown
+```{r}             ← Code chunk
+#| label: fig-km
+#| fig-cap: "KM curve."
+survfit(...) |> plot()
+```
+````
+
+Rule: write once → render to any format.
+:::
+:::
+
+## 16. Markdown — The Prose Layer
+
+**Markdown** (J. Gruber, 2004) — lightweight markup, readable as plain text, converts to HTML/PDF via Pandoc.
+
+::: {.columns}
+::: {.column width="50%"}
+**Relation to \LaTeX{}**
+
+| Aspect | \LaTeX{} | Markdown |
+|---|---|---|
+| Design goal | Precision | Readability |
+| Math | Native | Via \LaTeX{} engine |
+| Output | PDF mainly | Many (via Pandoc) |
+| Verbosity | High | Minimal |
+
+In Quarto: Markdown is the prose layer. \LaTeX{} runs underneath for PDF.
+:::
+::: {.column width="50%"}
+**Syntax comparison**
+
+| Element | \LaTeX{} | Markdown |
+|---|---|---|
+| Bold | `\textbf{x}` | `**x**` |
+| Italic | `\textit{x}` | `*x*` |
+| Section | `\section{T}` | `## T` |
+| Bullet | `\begin{itemize}` | `- item` |
+| Link | `\href{u}{t}` | `[t](u)` |
+| Code | `\texttt{x}` | `` `x` `` |
+| Image | `\includegraphics` | `![](path)` |
+:::
+:::
+
+## 17. YAML — The Control Layer
+
+YAML controls the entire output without touching the content.
+
+```yaml
+---
+title: "Survival Analysis Report"
+author: "Imad El Badisy"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+  pdf:
+    toc: true
+    number-sections: true
+    pdf-engine: xelatex
+execute:
+  warning: false
+  message: false
+bibliography: references.bib
+---
+```
+
+Change the `format` block → completely different output, same source. Add a format → get a new output for free.
+
+## 18. Code Chunks and Inline Code
+
+::: {.columns}
+::: {.column width="52%"}
+**Chunk options** (`#|` syntax — same for R, Python, Julia):
+
+| Option | Effect |
+|---|---|
+| `label` | names output for `@fig-` refs |
+| `echo` | show / hide source code |
+| `eval` | run / skip chunk |
+| `fig-cap` | figure caption |
+| `tbl-cap` | table caption |
+| `warning` | show / hide warnings |
+
+````markdown
+```{r}
+#| label: fig-km
+#| fig-cap: "Kaplan-Meier curve."
+#| echo: false
+survfit(Surv(time, status) ~ 1, data = df) |>
+  plot()
+```
+````
+:::
+::: {.column width="48%"}
+**Inline code** — live values in prose:
+
+```markdown
+The dataset has `r nrow(mtcars)` rows.
+Mean MPG: `r round(mean(mtcars$mpg), 1)`.
+```
+
+Numbers update automatically when the data changes — no manual editing.
+
+\medskip
+**Demo →** `demos/quarto/01-minimal/`
+:::
+:::
+
+## 19. Cross-References and Citations
+
+**Figures, tables, equations** — use label prefixes:
+
+```markdown
+![Flow diagram](flow.png){#fig-flow}    → cite as @fig-flow
+: Patient groups {#tbl-groups}          → cite as @tbl-groups
+$$ h(t|x) = h_0(t)e^{x^\top\beta} $$ {#eq-cox}  → @eq-cox
+```
+
+**Citations** — add `.bib` in YAML, then cite inline:
+
+```yaml
+bibliography: references.bib
+```
+
+```markdown
+The Cox model [@cox1972] is widely used in survival analysis.
+```
+
+**Label prefixes are mandatory:** `fig-`, `tbl-`, `eq-`, `sec-` — wrong prefix = broken reference.
+
+**Demo →** `demos/quarto/02-crossrefs/`
+
+## 20. Output Formats
+
+| Format | YAML key | Render command | Best for |
+|---|---|---|---|
+| HTML | `html` | `--to html` | Web, interactive |
+| PDF | `pdf` | `--to pdf` | Submission, archiving |
+| Word | `docx` | `--to docx` | Collaborators |
+| Beamer slides | `beamer` | `--to beamer` | PDF lectures |
+| RevealJS slides | `revealjs` | `--to revealjs` | Browser talks |
+| Website | project `website` | `quarto preview` | Course / research site |
+| Book | project `book` | `quarto render` | Thesis, textbook |
+| EPUB | `epub` | `--to epub` | Mobile reading |
+
+All formats share one source — switching is a YAML change, not a rewrite.
+
+## 21. Slides — RevealJS vs Beamer
+
+::: {.columns}
+::: {.column width="50%"}
+**RevealJS** — browser slides
+
+```yaml
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    incremental: true
+```
+
+- Runs in any browser
+- Animations, fragments, speaker notes
+- Easy to share: just a URL
+- Interactive elements (Observable)
+:::
+::: {.column width="50%"}
+**Beamer** — PDF slides
+
+```yaml
+format:
+  beamer:
+    theme: Madrid
+    colortheme: crane
+    pdf-engine: xelatex
+```
+
+- Classic conference / print format
+- Full \LaTeX{} math and TikZ
+- Works offline, always renders the same
+:::
+:::
+
+**Structure:** with `slide-level: 2`, `#` headings → sections, `##` headings → slides.
+
+**Demo →** `demos/quarto/03-slides/` and `demos/quarto-lecture/02-slides/`
+
+## 22. Projects and `_quarto.yml`
+
+Use a **project** when you have more than one file.
+
+::: {.columns}
+::: {.column width="45%"}
+```text
+my-project/
+  _quarto.yml
+  index.qmd
+  methods.qmd
+  results.qmd
+  references.bib
+  figures/
+```
+
+```bash
+quarto render    # all files
+quarto preview   # live reload
+quarto create project book my-book
+quarto create project website my-site
+```
+:::
+::: {.column width="55%"}
+```yaml
+# _quarto.yml — shared config
+project:
+  type: website     # or: book, default
+  output-dir: _output
+
+website:
+  title: "My Course"
+  navbar:
+    left:
+      - index.qmd
+      - methods.qmd
+
+format:
+  html:
+    toc: true
+    theme: cosmo
+  pdf:
+    number-sections: true
+```
+:::
+:::
+
+**Demo →** `demos/quarto-lecture/` — 01-report, 02-slides, 03-website, 04-book, 05-template
+
+## 23. Templates
+
+Use templates when the same structure repeats across documents.
+
+::: {.columns}
+::: {.column width="50%"}
+**Apply a template:**
+
+```bash
+quarto use template owner/repository
+```
+
+**Workflow:**
+
+1. Render unchanged — verify it compiles
+2. Edit YAML (title, author, date)
+3. Render again
+4. Replace body content
+5. Final render
+
+**Useful repos:**
+
+- `quarto-journals` — journal formats
+- `quarto-thesis` — thesis template
+- `quarto-revealjs-clean` — clean slides
+:::
+::: {.column width="50%"}
+**Create your own template:**
+
+```text
+my-template/
+  template.qmd     ← example document
+  _extensions/
+    my-template/
+      _extension.yml
+      custom.tex    ← LaTeX preamble
+      theme.scss    ← HTML theme
+```
+
+A template is just a `.qmd` file with a custom format — share it with `quarto use template`.
+
+**Demo →** `demos/quarto-lecture/05-template/`
+:::
+:::
+
+## 24. Debugging Checklist
+
+::: {.columns}
+::: {.column width="55%"}
+| Problem | Where to look |
+|---|---|
+| YAML fails | indentation — 2 spaces, no tabs |
+| Figure missing | relative path from `.qmd` |
+| Cross-ref broken | correct prefix: `fig-`, `tbl-`, `eq-` |
+| PDF fails | run `quarto check`; LaTeX engine |
+| Citation missing | `.bib` path + exact cite key |
+| Code chunk fails | engine installed, package loaded |
+
+**HTML works but PDF fails?**
+
+```bash
+quarto render report.qmd --to html  # isolate
+quarto render report.qmd --to pdf
+```
+
+Raw HTML (`<div>`, widgets) breaks PDF output.
+:::
+::: {.column width="45%"}
+**Key commands:**
+
+```bash
+quarto --version
+quarto check
+quarto render report.qmd
+quarto render report.qmd --to pdf
+quarto preview report.qmd
+quarto create project book my-book
+quarto create project website my-site
+quarto use template owner/repo
+```
+
+**When stuck:** use an AI agent with the exact error + minimal snippet (see slide 10).
+:::
+:::
+
+## 25. Lab — Build Your Own Templates
+
+**3 hours remaining — build from scratch in pairs or solo:**
+
+| Task | Output | Key concepts |
+|---|---|---|
+| **1** — Minimal report | HTML + PDF | YAML, Markdown, code chunk |
+| **2** — Slide deck | RevealJS or Beamer | `slide-level`, themes |
+| **3** — Website | HTML site | `_quarto.yml`, navbar |
+| **4** — Book / thesis chapter | HTML + PDF | chapters, cross-refs |
+| **5** — eBook | EPUB | `epub` format, covers |
+| **6** — Custom template | reusable format | `_extensions/`, custom \LaTeX{} |
+
+\medskip
+**Start from `demos/quarto-lecture/` — one folder per task.**
+
+Each output must have: a title page, one figure with caption and cross-reference, one equation, and a bibliography entry.

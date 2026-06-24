@@ -1,0 +1,68 @@
+---
+title: "Clean Quarto Report"
+subtitle: "One source, HTML and PDF outputs"
+author: "Imad El Badisy"
+date: today
+bibliography: references.bib
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+  pdf:
+    toc: true
+    number-sections: true
+    pdf-engine: xelatex
+execute:
+  warning: false
+  message: false
+---
+
+## Goal
+
+This demo shows the basic Quarto workflow: write prose, run code, label outputs, cite a source, and render the same file to HTML or PDF [@quarto].
+
+## Data
+
+We use the built-in `mtcars` dataset so the example runs without downloads.
+
+```{r}
+#| label: tbl-summary
+#| tbl-cap: "First six rows of the mtcars dataset."
+
+knitr::kable(head(mtcars), digits = 2)
+```
+
+## Figure
+
+Figure @fig-mpg shows the relationship between car weight and fuel economy.
+
+```{r}
+#| label: fig-mpg
+#| fig-cap: "Fuel economy decreases as car weight increases."
+#| echo: false
+
+plot(mtcars$wt, mtcars$mpg,
+     xlab = "Weight (1000 lbs)",
+     ylab = "Miles per gallon",
+     pch = 19,
+     col = "#1f77b4")
+abline(lm(mpg ~ wt, data = mtcars), col = "#d62728", lwd = 2)
+```
+
+## Inline Result
+
+The dataset contains `r nrow(mtcars)` cars and `r ncol(mtcars)` variables.
+
+## Render
+
+```bash
+quarto render report.qmd --to html
+quarto render report.qmd --to pdf
+```
+
+## References
+
+::: {#refs}
+:::
+

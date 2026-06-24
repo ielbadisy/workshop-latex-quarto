@@ -1,0 +1,47 @@
+---
+title: "Report Title"
+subtitle: "Short descriptive subtitle"
+author: "Author Name"
+date: today
+bibliography: references.bib
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+  pdf:
+    toc: true
+    number-sections: true
+    pdf-engine: xelatex
+execute:
+  warning: false
+  message: false
+---
+
+## Abstract
+
+Write a short summary of the report.
+
+## Background
+
+Explain the problem and cite Quarto if needed [@quarto].
+
+## Analysis
+
+```{r}
+#| label: fig-template
+#| fig-cap: "Template example figure."
+#| echo: false
+
+plot(cars, pch = 19, col = "#1f77b4")
+```
+
+## Conclusion
+
+State the main result.
+
+## References
+
+::: {#refs}
+:::
+

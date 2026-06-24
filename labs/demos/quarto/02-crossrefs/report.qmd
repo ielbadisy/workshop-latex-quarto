@@ -1,0 +1,158 @@
+---
+title: "Cross-References in Quarto"
+subtitle: "Figures, Tables, Equations, and Sections"
+author: "Imad El Badisy"
+date: today
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    pdf-engine: xelatex
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{amsmath}
+  html:
+    toc: true
+    theme: flatly
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+  message: false
+bibliography: ../01-minimal/refs.bib
+---
+
+```{r setup}
+library(survival)
+library(ggplot2)
+library(kableExtra)
+```
+
+## Study Design {#sec-design}
+
+This document demonstrates Quarto's cross-referencing system.
+Every figure, table, equation, and section can be referenced
+by a label — and all references update automatically.
+
+The dataset is described in @sec-data.
+The statistical model is given in @eq-cox.
+Results are shown in @fig-km and @tbl-cox.
+
+## Data {#sec-data}
+
+The `lung` dataset (NCCTG lung cancer study) contains
+`r nrow(lung)` patients. See @sec-design for context.
+
+## Statistical Model {#sec-methods}
+
+The Cox proportional hazards model [@cox1972] is:
+
+$$
+h(t \mid \mathbf{x}) = h_0(t) \exp(\mathbf{x}^\top \boldsymbol{\beta})
+$$ {#eq-cox}
+
+The concordance index is:
+
+$$
+C = \frac
+  {\sum_{i:\delta_i=1} \sum_{j:T_j > T_i}
+   \mathbf{1}(\hat{r}_i > \hat{r}_j)}
+  {\sum_{i:\delta_i=1} \sum_{j:T_j > T_i} 1}
+$$ {#eq-cindex}
+
+Equation @eq-cox defines the hazard; @eq-cindex defines
+discrimination.
+
+## Results
+
+### Descriptive Statistics
+
+@tbl-desc presents baseline characteristics.
+
+```{r}
+#| label: tbl-desc
+#| tbl-cap: "Baseline characteristics of the lung cancer cohort."
+
+data.frame(
+  Variable  = c("Age, mean (SD)", "Male sex, n (%)", "Deaths, n (%)"),
+  Value     = c(
+    paste0(round(mean(lung$age, na.rm=TRUE), 1),
+           " (", round(sd(lung$age, na.rm=TRUE), 1), ")"),
+    paste0(sum(lung$sex==1, na.rm=TRUE),
+           " (", round(mean(lung$sex==1, na.rm=TRUE)*100, 1), "%)"),
+    paste0(sum(lung$status==2, na.rm=TRUE),
+           " (", round(mean(lung$status==2, na.rm=TRUE)*100, 1), "%)")
+  )
+) |>
+  kable(booktabs = TRUE) |>
+  kable_styling(latex_options = "hold_position")
+```
+
+### Survival Curves
+
+@fig-km shows overall survival; @fig-km-sex compares by sex.
+
+```{r}
+#| label: fig-km
+#| fig-cap: "Overall Kaplan-Meier survival curve."
+#| fig-width: 5
+#| fig-height: 3.5
+
+km <- survfit(Surv(time, status == 2) ~ 1, data = lung)
+plot(km, xlab = "Days", ylab = "Survival probability",
+     col = "#0072B2", lwd = 2, conf.int = TRUE)
+abline(h = 0.5, lty = 2, col = "grey50")
+```
+
+```{r}
+#| label: fig-km-sex
+#| fig-cap: "Kaplan-Meier curves stratified by sex."
+#| fig-width: 5
+#| fig-height: 3.5
+
+km_sex <- survfit(Surv(time, status == 2) ~ sex, data = lung)
+plot(km_sex,
+     xlab = "Days", ylab = "Survival probability",
+     col = c("#D55E00", "#0072B2"), lwd = 2,
+     lty = 1:2, conf.int = FALSE)
+legend("topright", legend = c("Male", "Female"),
+       col = c("#D55E00", "#0072B2"), lwd = 2, lty = 1:2)
+```
+
+### Cox Regression
+
+Results from fitting @eq-cox are in @tbl-cox.
+
+```{r}
+#| label: tbl-cox
+#| tbl-cap: "Cox model: hazard ratios with 95% confidence intervals."
+
+fit <- coxph(Surv(time, status==2) ~ age + sex + ph.ecog, data=lung)
+
+broom::tidy(fit, exponentiate = TRUE, conf.int = TRUE) |>
+  dplyr::select(term, estimate, conf.low, conf.high, p.value) |>
+  dplyr::mutate(dplyr::across(where(is.numeric), \(x) round(x, 3))) |>
+  kable(booktabs = TRUE,
+        col.names = c("Variable", "HR", "95% CI Low",
+                      "95% CI High", "p-value")) |>
+  kable_styling(latex_options = "hold_position")
+```
+
+## Summary
+
+Cross-references in Quarto:
+
+| Object   | Label prefix | Reference  |
+|----------|-------------|------------|
+| Figure   | `fig-`      | `@fig-km`  |
+| Table    | `tbl-`      | `@tbl-cox` |
+| Equation | `eq-`       | `@eq-cox`  |
+| Section  | `sec-`      | `@sec-methods` |
+
+All labels update automatically when objects are added or reordered.
+
+## References {.unnumbered}
+
+::: {#refs}
+:::

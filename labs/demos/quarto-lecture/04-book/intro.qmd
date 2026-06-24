@@ -1,0 +1,6 @@
+# Introduction
+
+A Quarto book is useful when course notes or reports become multi-chapter documents.
+
+The chapter list is defined in `_quarto.yml`.
+

@@ -1,0 +1,12 @@
+# Preface
+
+This mini book demonstrates a Quarto book project.
+
+Render from the repository root:
+
+```bash
+quarto render demos/quarto-lecture/04-book --to html
+quarto render demos/quarto-lecture/04-book --to pdf
+quarto render demos/quarto-lecture/04-book --to epub
+```
+

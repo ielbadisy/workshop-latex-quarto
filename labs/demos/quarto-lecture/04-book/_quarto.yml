@@ -1,0 +1,25 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Mini Quarto Book"
+  author: "Imad El Badisy"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - analysis.qmd
+    - summary.qmd
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+    pdf-engine: xelatex
+  epub: default
+
+execute:
+  warning: false
+  message: false
+

@@ -1,0 +1,18 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Quarto Lecture Site"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - analysis.qmd
+      - resources.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+

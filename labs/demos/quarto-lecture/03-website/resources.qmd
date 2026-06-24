@@ -1,0 +1,10 @@
+---
+title: "Resources"
+---
+
+## Official Docs
+
+- <https://quarto.org/docs/get-started/hello/>
+- <https://quarto.org/docs/projects/quarto-projects.html>
+- <https://quarto.org/docs/websites/>
+

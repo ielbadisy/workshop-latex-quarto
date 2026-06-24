@@ -1,0 +1,116 @@
+% ============================================================
+% DEMO 1 — Minimal LaTeX document
+% Live demo: build this from scratch, step by step
+%
+% Compile with:  xelatex paper.tex
+% ============================================================
+
+\documentclass[12pt, a4paper]{article}
+
+% ----- Packages -----
+\usepackage{amsmath, amssymb}   % math
+\usepackage{graphicx}           % figures
+\usepackage{booktabs}           % publication tables
+\usepackage{hyperref}           % clickable links
+
+% ----- Title block -----
+\title{A Minimal LaTeX Document}
+\author{Imad El Badisy}
+\date{\today}
+
+% ============================================================
+\begin{document}
+
+\maketitle
+
+% ----- Abstract -----
+\begin{abstract}
+  This is a minimal LaTeX document built live during the demo.
+  We will add sections, math, a figure, and a table step by step.
+\end{abstract}
+
+% ----- Introduction -----
+\section{Introduction}
+
+LaTeX is a document preparation system that separates
+\textbf{content} from \textbf{formatting}.
+You write plain text with markup commands, and LaTeX
+typesets a professional PDF.
+
+% TODO (live): add a sentence with \emph{}, \texttt{}, inline math
+
+% ----- Methods -----
+\section{Methods}
+
+\subsection{Statistical Model}
+
+Let $Y_i$ be the outcome for subject $i = 1, \ldots, n$.
+We assume the linear model:
+
+\begin{equation}
+  Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
+  \quad \varepsilon_i \sim N(0, \sigma^2)
+  \label{eq:lm}
+\end{equation}
+
+The ordinary least squares estimator is:
+
+\begin{equation}
+  \hat{\boldsymbol{\beta}} =
+  (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}
+  \label{eq:ols}
+\end{equation}
+
+As shown in Equation~\ref{eq:ols}, $\hat{\boldsymbol{\beta}}$
+is a linear function of $\mathbf{y}$.
+
+% TODO (live): add aligned equations with \begin{align}
+
+\subsection{Lists}
+
+The data preprocessing steps are:
+
+\begin{enumerate}
+  \item Remove duplicate records
+  \item Impute missing values by median
+  \item Standardize continuous predictors
+\end{enumerate}
+
+% ----- Results -----
+\section{Results}
+
+\subsection{Descriptive Statistics}
+
+Table~\ref{tab:desc} shows the baseline characteristics
+of the study population.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Baseline characteristics of study participants.}
+  \label{tab:desc}
+  \begin{tabular}{lrr}
+    \toprule
+    Variable      & Mean  & SD    \\
+    \midrule
+    Age (years)   & 45.2  & 12.1  \\
+    BMI           & 27.3  &  4.8  \\
+    Systolic BP   & 128.4 & 14.2  \\
+    \midrule
+    \multicolumn{3}{l}{\small $n = 250$ participants} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ----- Discussion -----
+\section{Discussion}
+
+We have demonstrated how to write a minimal but complete
+scientific document in \LaTeX.
+
+% ----- Conclusion -----
+\section{Conclusion}
+
+\LaTeX{} provides precise, reproducible typesetting
+for scientific manuscripts.
+
+\end{document}

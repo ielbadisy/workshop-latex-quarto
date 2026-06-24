@@ -1,0 +1,137 @@
+% ============================================================
+% DEMO 3 — Elsevier journal template (elsarticle)
+% Live demo: show how a .cls changes the entire layout
+%
+% Compile with:
+%   xelatex paper.tex
+%   biber paper
+%   xelatex paper.tex
+%   xelatex paper.tex
+% ============================================================
+
+\documentclass[preprint, 12pt, authoryear]{elsarticle}
+
+% ----- Packages -----
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
+
+% ----- Custom commands -----
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+
+% ============================================================
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Survival Analysis with Machine Learning:\\
+       A Comparative Study}
+
+\author[unilab]{Imad El Badisy\corref{cor1}}
+\ead{elbadisyimad@gmail.com}
+
+\cortext[cor1]{Corresponding author}
+\affiliation[unilab]{
+  text={Department of Biostatistics,\\
+        University of Medicine}
+}
+
+\begin{abstract}
+We compare survival machine learning methods on a benchmark
+dataset. Cox regression serves as baseline. Results show that
+ensemble methods improve concordance by 5--8\%.
+\end{abstract}
+
+\begin{keyword}
+  survival analysis \sep machine learning \sep
+  concordance index \sep Cox regression
+\end{keyword}
+
+\end{frontmatter}
+
+% ============================================================
+
+\section{Introduction}
+\label{sec:intro}
+
+Survival analysis models time-to-event outcomes, which arise
+frequently in clinical and epidemiological research
+\citep{cox1972}.
+Classical methods such as the Cox proportional hazards model
+\citep{cox1972} assume a multiplicative hazard structure.
+Recent approaches extend this to machine learning
+\citep{hastie2009}.
+
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Notation}
+
+Let $(T_i, \delta_i, \mathbf{x}_i)$ denote the observed time,
+event indicator, and covariates for subject $i = 1,\ldots,n$.
+
+\subsection{Cox Proportional Hazards}
+
+The Cox model specifies:
+\begin{equation}
+  h(t \mid \mathbf{x})
+    = h_0(t) \exp(\mathbf{x}^\top \boldsymbol{\beta})
+  \label{eq:cox}
+\end{equation}
+
+Parameters are estimated by maximizing the partial likelihood.
+
+\subsection{Concordance Index}
+
+Model discrimination is measured by Harrell's C-index:
+\begin{equation}
+  C = \frac{\sum_{i:\delta_i=1}
+            \sum_{j: T_j > T_i}
+            \mathbf{1}(\hat{r}_i > \hat{r}_j)}
+           {\sum_{i:\delta_i=1}
+            \sum_{j: T_j > T_i} 1}
+\end{equation}
+
+\section{Results}
+\label{sec:results}
+
+Table~\ref{tab:results} summarizes concordance indices
+across all methods.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Concordance index (C-index) by method.
+           Values are mean $\pm$ SD over 10 cross-validation folds.}
+  \label{tab:results}
+  \begin{tabular}{lcc}
+    \toprule
+    Method            & C-index         & IBS             \\
+    \midrule
+    Cox PH            & $0.632 \pm 0.018$ & $0.184 \pm 0.009$ \\
+    Random Survival Forest & $0.681 \pm 0.015$ & $0.162 \pm 0.008$ \\
+    Gradient Boosting & $0.688 \pm 0.014$ & $0.158 \pm 0.007$ \\
+    Deep Survival     & $0.671 \pm 0.017$ & $0.169 \pm 0.009$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Discussion}
+\label{sec:discussion}
+
+The results in Table~\ref{tab:results} confirm that ensemble
+methods outperform Cox regression on this benchmark.
+The Cox model \eqref{eq:cox} remains valuable for its
+interpretability \citep{hastie2009}.
+
+\section{Conclusion}
+
+Machine learning methods provide meaningful improvements
+over Cox regression. Future work should assess calibration.
+
+% ----- Bibliography -----
+\bibliographystyle{elsarticle-harv}
+\bibliography{../04-bibliography/refs}
+
+\end{document}

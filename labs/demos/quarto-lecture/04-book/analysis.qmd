@@ -1,0 +1,18 @@
+# Analysis
+
+This chapter includes a figure.
+
+```{r}
+#| label: fig-book-cars
+#| fig-cap: "Speed and stopping distance from the cars dataset."
+#| echo: false
+
+plot(cars$speed, cars$dist,
+     xlab = "Speed",
+     ylab = "Stopping distance",
+     pch = 19,
+     col = "#1f77b4")
+```
+
+See @fig-book-cars.
+

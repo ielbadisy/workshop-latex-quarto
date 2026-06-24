@@ -1,0 +1,57 @@
+---
+title: "Quarto Slide Demo"
+subtitle: "RevealJS and Beamer from one file"
+author: "Imad El Badisy"
+date: today
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+  beamer:
+    theme: Madrid
+    colortheme: crane
+    slide-level: 2
+    pdf-engine: xelatex
+execute:
+  warning: false
+  message: false
+---
+
+# Start
+
+## Why Slides in Quarto?
+
+- Write slides in plain text
+- Include code and output
+- Render to HTML slides or PDF slides
+- Keep examples reproducible
+
+## Slide Structure
+
+```markdown
+# Section
+
+## Slide title
+
+- Point one
+- Point two
+```
+
+## A Small Figure
+
+```{r}
+#| label: fig-pressure-slide
+#| fig-cap: "Pressure data in a slide."
+#| echo: false
+
+plot(pressure, pch = 19, col = "#1f77b4",
+     xlab = "Temperature", ylab = "Pressure")
+```
+
+## Render Commands
+
+```bash
+quarto render slides.qmd --to revealjs
+quarto render slides.qmd --to beamer
+```
+
