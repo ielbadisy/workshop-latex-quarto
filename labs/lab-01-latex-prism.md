@@ -1,6 +1,6 @@
-# Lab 1 — LaTeX with Prism
+# Lab 1 - LaTeX with Prism
 
-**Environment:** Prism (browser — no installation needed)  
+**Environment:** Prism (browser - no installation needed)  
 **Duration:** 30 minutes  
 **Goal:** write, compile, and export a minimal scientific document entirely in the browser using Prism's AI-assisted LaTeX editor.
 
@@ -9,10 +9,10 @@
 
 1. Go to **https://openai.com/prism** and sign in with your OpenAI account
 2. Click **New Project** → name it `lab-latex`
-3. Prism creates a default `main.tex` — leave it open
+3. Prism creates a default `main.tex` - leave it open
 
 
-## Task 1 — Minimal Document (5 min)
+## Task 1 - Minimal Document (5 min)
 
 Replace the default content with:
 
@@ -46,7 +46,7 @@ We describe our approach here.
 Click **Compile** (top right). Verify the PDF appears on the right panel.
 
 
-## Task 2 — Add a Math Equation (5 min)
+## Task 2 - Add a Math Equation (5 min)
 
 Inside `\section{Methods}`, add:
 
@@ -66,7 +66,7 @@ See Equation~\ref{eq:loglik} for the full expression.
 Compile. Verify the equation is numbered and the reference resolves.
 
 
-## Task 3 — Add a Table (5 min)
+## Task 3 - Add a Table (5 min)
 
 Add a new section and insert a publication-quality table:
 
@@ -92,7 +92,7 @@ See Table~\ref{tab:desc} for descriptive statistics.
 ```
 
 
-## Task 4 — Add a Bibliography Entry (5 min)
+## Task 4 - Add a Bibliography Entry (5 min)
 
 Create a new file `references.bib` in Prism and add:
 
@@ -117,7 +117,7 @@ is widely used in survival analysis.
 Compile. Verify the reference appears in the bibliography.
 
 
-## Task 5 — Use AI Assistance in Prism (5 min)
+## Task 5 - Use AI Assistance in Prism (5 min)
 
 Try one of the following with Prism's built-in GPT-5.2:
 

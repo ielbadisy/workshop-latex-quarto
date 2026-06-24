@@ -1,4 +1,4 @@
-# From LaTeX to Quarto — Presenter Guide
+# From LaTeX to Quarto - Presenter Guide
 
 **Audience:** PhD students  
 **Duration:** 3 hours  
@@ -9,8 +9,8 @@
 
 | Time | Slide | Topic | Notes |
 |---|---|---|---|
-| 0:00–0:05 | — | Welcome, logistics | Open slides PDF |
-| **Part 1 — LaTeX** | | | |
+| 0:00–0:05 | - | Welcome, logistics | Open slides PDF |
+| **Part 1 - LaTeX** | | | |
 | 0:05–0:10 | 1 | A Brief History | Show LaTeX logo; emphasize TeX is the engine |
 | 0:10–0:15 | 2 | LaTeX ≠ Overleaf | Key misconception to clear up first |
 | 0:15–0:20 | 3 | Why LaTeX? | Ask: who has used Word for a thesis? |
@@ -19,11 +19,11 @@
 | 0:30–0:38 | 6 | Document Structure | Live-type the minimal example in Prism |
 | 0:38–0:43 | 7 | How to Compile | Point to the engine diagram; run `latexmk` in terminal |
 | 0:43–0:50 | 8 | Mathematical Notation | Type 2–3 equations live; show custom commands |
-| 0:50–0:55 | 9 | Diagrams — TikZ | Compile `demos/latex/03-template/`; show Mermaid |
+| 0:50–0:55 | 9 | Diagrams - TikZ | Compile `demos/latex/03-template/`; show Mermaid |
 | 0:55–1:00 | 10 | Debugging with AI | Demo: paste a broken snippet to Codex/Claude |
 | 1:00–1:05 | 11 | AI Workflow diagram | Reinforce the loop: isolate → ask → fix |
 | **Break** | | | 5 minutes |
-| **Part 2 — Quarto** | | | |
+| **Part 2 - Quarto** | | | |
 | 1:10–1:15 | 12 | From LaTeX to Quarto | "Same engine, but adds code + multiple outputs" |
 | 1:15–1:20 | 13 | What Quarto Solves | Show the output format table |
 | 1:20–1:28 | 14 | Engines and Install | Run `quarto check` live in terminal |
@@ -39,10 +39,10 @@
 | 2:23–2:28 | 24 | Debugging | Walk through the checklist with a real error |
 | 2:28–2:30 | 25 | Lab intro | Assign lab (see below) |
 | **Lab** | | | 30 minutes |
-| 2:30–3:00 | — | Hands-on lab | Students choose Lab 1, 2, or 3 |
+| 2:30–3:00 | - | Hands-on lab | Students choose Lab 1, 2, or 3 |
 
 
-## How to Compile — Quick Reference
+## How to Compile - Quick Reference
 
 ### LaTeX
 
@@ -58,7 +58,7 @@ biber paper
 xelatex paper.tex
 xelatex paper.tex
 
-# Recommended — automates all passes
+# Recommended - automates all passes
 latexmk -xelatex paper.tex
 
 # Clean auxiliary files
@@ -96,7 +96,7 @@ quarto use template owner/repo        # apply template
 1. Install extension: `Quarto` (Quarto Dev Team)
 2. Open `.qmd` file → `Ctrl+Shift+K` to render (or click **Render** button)
 3. `Ctrl+Shift+P` → `Quarto: Preview` for live reload
-4. Format picker in the toolbar — switch between html / pdf / revealjs
+4. Format picker in the toolbar - switch between html / pdf / revealjs
 5. Code cells run interactively with `Ctrl+Enter` (like a notebook)
 6. Terminal shortcut: open integrated terminal with `` Ctrl+` ``
 

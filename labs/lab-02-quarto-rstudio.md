@@ -1,8 +1,8 @@
-# Lab 2 — Quarto with RStudio
+# Lab 2 - Quarto with RStudio
 
 **Environment:** RStudio (desktop)  
 **Duration:** 30 minutes  
-**Goal:** create a reproducible report in HTML and PDF, then convert it to a RevealJS slide deck — all from the same `.qmd` source in RStudio.
+**Goal:** create a reproducible report in HTML and PDF, then convert it to a RevealJS slide deck - all from the same `.qmd` source in RStudio.
 
 
 ## Setup (2 min)
@@ -15,10 +15,10 @@ system("quarto check")
 ```
 
 3. Create a new folder `lab-quarto-rstudio/` (File → New Project → New Directory → Quarto Project)
-4. RStudio generates `lab-quarto-rstudio.qmd` — open it
+4. RStudio generates `lab-quarto-rstudio.qmd` - open it
 
 
-## Task 1 — Minimal HTML Report (5 min)
+## Task 1 - Minimal HTML Report (5 min)
 
 Replace the default content with:
 
@@ -51,7 +51,7 @@ It contains `r nrow(mtcars)` cars and `r ncol(mtcars)` variables.
 Click **Render** (or `Ctrl+Shift+K`). The HTML opens in the Viewer pane.
 
 
-## Task 2 — Add a Figure with Cross-Reference (5 min)
+## Task 2 - Add a Figure with Cross-Reference (5 min)
 
 Add below the Data section:
 
@@ -73,7 +73,7 @@ boxplot(mpg ~ cyl, data = mtcars,
 Render. Verify the figure appears with a caption and the `@fig-mpg` reference resolves correctly.
 
 
-## Task 3 — Add PDF Output (5 min)
+## Task 3 - Add PDF Output (5 min)
 
 Extend the YAML to produce both HTML and PDF:
 
@@ -100,7 +100,7 @@ quarto render lab-quarto-rstudio.qmd --to pdf
 Open the PDF in the Files pane. Verify figure and table of contents.
 
 
-## Task 4 — Add an Equation and Citation (5 min)
+## Task 4 - Add an Equation and Citation (5 min)
 
 Add to `references.bib` (create the file in the project folder):
 
@@ -130,7 +130,7 @@ $$ {#eq-lm}
 Render both formats. Verify equation numbering and citation.
 
 
-## Task 5 — Convert to RevealJS Slides (5 min)
+## Task 5 - Convert to RevealJS Slides (5 min)
 
 Create a new file `slides.qmd` in the same folder:
 
@@ -177,9 +177,9 @@ Open the `.html` in a browser. Navigate slides with arrow keys.
 
 You must produce three output files from the same data:
 
-- [ ] `lab-quarto-rstudio.html` — report with figure, equation, citation
-- [ ] `lab-quarto-rstudio.pdf` — same content as PDF
-- [ ] `slides.html` — RevealJS slide deck with at least 2 slides and one figure
+- [ ] `lab-quarto-rstudio.html` - report with figure, equation, citation
+- [ ] `lab-quarto-rstudio.pdf` - same content as PDF
+- [ ] `slides.html` - RevealJS slide deck with at least 2 slides and one figure
 
 
 ## Compile Reference (RStudio)

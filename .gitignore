@@ -13,14 +13,9 @@
 *.spl
 *.Rhistory
 
-# Quarto / R generated
+# Quarto generated folders
 _site/
 _book/
 _output/
 *_files/
 .quarto/
-*.freeze/
-
-# Large rendered outputs (keep source, not generated)
-# Comment out if you want to keep PDFs
-# *.pdf

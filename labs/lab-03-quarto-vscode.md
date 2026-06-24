@@ -1,4 +1,4 @@
-# Lab 3 — Quarto with VS Code (Command Line + Editor)
+# Lab 3 - Quarto with VS Code (Command Line + Editor)
 
 **Environment:** VS Code + Quarto extension + integrated terminal  
 **Duration:** 30 minutes  
@@ -21,7 +21,7 @@ quarto check
 Both commands should complete without errors.
 
 
-## Task 1 — Create a Website Project from the Terminal (5 min)
+## Task 1 - Create a Website Project from the Terminal (5 min)
 
 In the terminal:
 
@@ -34,7 +34,7 @@ cd my-site
 quarto preview
 ```
 
-A browser tab opens with the default site. Leave the preview running — it reloads automatically on every save.
+A browser tab opens with the default site. Leave the preview running - it reloads automatically on every save.
 
 In VS Code: `File → Open Folder → my-site`
 
@@ -49,7 +49,7 @@ my-site/
 ```
 
 
-## Task 2 — Add a Page with Code and Figures (7 min)
+## Task 2 - Add a Page with Code and Figures (7 min)
 
 Create a new file `analysis.qmd` in `my-site/`:
 
@@ -108,10 +108,10 @@ format:
     theme: cosmo
 ```
 
-Save — the preview reloads and shows the new Analysis page.
+Save - the preview reloads and shows the new Analysis page.
 
 
-## Task 3 — Add PDF Output to the Project (5 min)
+## Task 3 - Add PDF Output to the Project (5 min)
 
 Stop the preview (`Ctrl+C`) and add a PDF format to `_quarto.yml`:
 
@@ -132,7 +132,7 @@ Render the entire project:
 quarto render
 ```
 
-Check the `_site/` folder — HTML files. Check `_output/` (if set) or alongside each `.qmd` — PDF files.
+Check the `_site/` folder - HTML files. Check `_output/` (if set) or alongside each `.qmd` - PDF files.
 
 Render only one format:
 
@@ -142,7 +142,7 @@ quarto render analysis.qmd --to html
 ```
 
 
-## Task 4 — Create a Book Project (5 min)
+## Task 4 - Create a Book Project (5 min)
 
 In the terminal, go back to the parent folder and create a book:
 
@@ -172,10 +172,10 @@ quarto render --to pdf
 quarto render --to epub
 ```
 
-Check `_book/` — you now have an HTML site, a PDF, and an EPUB from the same source.
+Check `_book/` - you now have an HTML site, a PDF, and an EPUB from the same source.
 
 
-## Task 5 — VS Code Shortcuts for Quarto (5 min)
+## Task 5 - VS Code Shortcuts for Quarto (5 min)
 
 Practice these VS Code workflows:
 
@@ -194,7 +194,7 @@ Practice these VS Code workflows:
 **Live editing workflow:**
 
 1. Open `analysis.qmd` in VS Code
-2. Run `quarto preview` in terminal — browser opens
+2. Run `quarto preview` in terminal - browser opens
 3. Edit and save → browser reloads automatically
 4. When done: `quarto render --to pdf` for the final PDF
 
@@ -203,14 +203,14 @@ Practice these VS Code workflows:
 
 You must produce:
 
-- [ ] A working website in `my-site/` — at least 3 pages, one with a figure and one equation
+- [ ] A working website in `my-site/` - at least 3 pages, one with a figure and one equation
 - [ ] A PDF version of at least one page rendered from the terminal
 - [ ] A book project in `my-book/` rendered to HTML + PDF + EPUB
 
 
 ## Full Compile Reference (Terminal + VS Code)
 
-### Quarto — Terminal
+### Quarto - Terminal
 
 ```bash
 quarto --version                          # check version
@@ -230,7 +230,7 @@ quarto create project website   my-site   # new website
 quarto use template owner/repo            # apply template
 ```
 
-### LaTeX — Terminal
+### LaTeX - Terminal
 
 ```bash
 latexmk -xelatex paper.tex        # compile (all passes, recommended)

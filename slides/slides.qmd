@@ -47,7 +47,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE, warning = FALSE, message = FALS
 ```
 
 
-# Part 1 — Scientific Writing with \LaTeX{}
+# Part 1 - Scientific Writing with \LaTeX{}
 
 ## 1. A Brief History
 
@@ -56,12 +56,12 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE, warning = FALSE, message = FALS
 ![](figures/latex-logo.png){width=95%}
 :::
 ::: {.column width="36%"}
-**\TeX{} — D. Knuth, 1978**
+**\TeX{} - D. Knuth, 1978**
 
 - Underlying engine, still used today
 - Deterministic, reproducible output
 
-**\LaTeX{} — L. Lamport, 1984**
+**\LaTeX{} - L. Lamport, 1984**
 
 - Macro layer on top of \TeX{}
 - Separates content from formatting
@@ -82,7 +82,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE, warning = FALSE, message = FALS
 
 ## 2. \LaTeX{} ≠ Overleaf
 
-For many students, **Overleaf = LaTeX** — but they are not the same thing.
+For many students, **Overleaf = LaTeX** - but they are not the same thing.
 
 ::: {.columns}
 ::: {.column width="36%"}
@@ -107,7 +107,7 @@ For many students, **Overleaf = LaTeX** — but they are not the same thing.
 :::
 
 \medskip
-**Analogy:** \LaTeX{} is the engine. Overleaf is the car. Swap the car — the engine stays the same.
+**Analogy:** \LaTeX{} is the engine. Overleaf is the car. Swap the car - the engine stays the same.
 
 ## 3. Why \LaTeX{}?
 
@@ -140,7 +140,7 @@ For many students, **Overleaf = LaTeX** — but they are not the same thing.
 :::
 :::
 
-## 4. Where to Write \LaTeX{} — Platforms
+## 4. Where to Write \LaTeX{} - Platforms
 
 ::: {.columns}
 ::: {.column width="55%"}
@@ -165,7 +165,7 @@ For many students, **Overleaf = LaTeX** — but they are not the same thing.
 
 ## 5. Why Document Classes?
 
-`\documentclass` is the first decision — it sets the layout, section hierarchy, and all defaults.
+`\documentclass` is the first decision - it sets the layout, section hierarchy, and all defaults.
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -196,7 +196,7 @@ For many students, **Overleaf = LaTeX** — but they are not the same thing.
 \usetheme{Madrid}
 ```
 
-The class file controls everything — margins, fonts, title format, header/footer.
+The class file controls everything - margins, fonts, title format, header/footer.
 :::
 :::
 
@@ -205,7 +205,7 @@ The class file controls everything — margins, fonts, title format, header/foot
 ```latex
 \documentclass[12pt, a4paper]{article}   % (1) class
 
-% (2) Preamble — packages and settings
+% (2) Preamble - packages and settings
 \usepackage{amsmath, amssymb}   % math
 \usepackage{graphicx}           % figures
 \usepackage{booktabs}           % tables
@@ -251,7 +251,7 @@ latexmk -xelatex paper.tex
 ```
 
 \medskip
-**Run at least twice** — cross-references are resolved on the second pass.
+**Run at least twice** - cross-references are resolved on the second pass.
 
 **Overleaf** handles this automatically.
 :::
@@ -303,11 +303,11 @@ latexmk -xelatex paper.tex
 :::
 :::
 
-## 9. Diagrams — TikZ and Alternatives
+## 9. Diagrams - TikZ and Alternatives
 
 ::: {.columns}
 ::: {.column width="50%"}
-**TikZ** — standard \LaTeX{} diagram package
+**TikZ** - standard \LaTeX{} diagram package
 
 ```latex
 \usepackage{tikz}
@@ -335,7 +335,7 @@ Other uses: DAGs, survival trees, neural nets, timelines.
 | **ggraph** | Graph visualization |
 | **Mermaid** | Quick diagrams in `.qmd` |
 
-**Mermaid — no package needed:**
+**Mermaid - no package needed:**
 
 ````markdown
 ```{mermaid}
@@ -373,7 +373,7 @@ Error: "Extra \begin{align}."
 What is wrong and how do I fix it?
 ```
 
-**Key rule:** never paste the entire document — isolate the failing block first.
+**Key rule:** never paste the entire document - isolate the failing block first.
 
 ## 11. AI-Assisted Debugging Workflow
 
@@ -411,13 +411,13 @@ What is wrong and how do I fix it?
 \end{tikzpicture}
 \end{center}
 \vspace{0.2em}
-{\small\textbf{Demo →} \texttt{demos/latex/} — 01-minimal, 02-math, 03-template, 04-bibliography}
+{\small\textbf{Demo →} \texttt{demos/latex/} - 01-minimal, 02-math, 03-template, 04-bibliography}
 ```
 
 
-# Part 2 — Quarto for Reproducible Publishing
+# Part 2 - Quarto for Reproducible Publishing
 
-## 12. From \LaTeX{} to Quarto — Why?
+## 12. From \LaTeX{} to Quarto - Why?
 
 ::: {.columns}
 ::: {.column width="60%"}
@@ -435,7 +435,7 @@ What is wrong and how do I fix it?
 ::: {.column width="40%"}
 ![](figures/rmarkdown-logo.png){width=44%}\ ![](figures/quarto-logo.png){width=44%}
 
-\small R Markdown (2012) was the predecessor. Quarto (2022) is the successor — multi-language, multi-output.
+\small R Markdown (2012) was the predecessor. Quarto (2022) is the successor - multi-language, multi-output.
 :::
 :::
 
@@ -538,9 +538,9 @@ Rule: write once → render to any format.
 :::
 :::
 
-## 16. Markdown — The Prose Layer
+## 16. Markdown - The Prose Layer
 
-**Markdown** (J. Gruber, 2004) — lightweight markup, readable as plain text, converts to HTML/PDF via Pandoc.
+**Markdown** (J. Gruber, 2004) - lightweight markup, readable as plain text, converts to HTML/PDF via Pandoc.
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -570,7 +570,7 @@ In Quarto: Markdown is the prose layer. \LaTeX{} runs underneath for PDF.
 :::
 :::
 
-## 17. YAML — The Control Layer
+## 17. YAML - The Control Layer
 
 YAML controls the entire output without touching the content.
 
@@ -601,7 +601,7 @@ Change the `format` block → completely different output, same source. Add a fo
 
 ::: {.columns}
 ::: {.column width="52%"}
-**Chunk options** (`#|` syntax — same for R, Python, Julia):
+**Chunk options** (`#|` syntax - same for R, Python, Julia):
 
 | Option | Effect |
 |---|---|
@@ -623,14 +623,14 @@ survfit(Surv(time, status) ~ 1, data = df) |>
 ````
 :::
 ::: {.column width="48%"}
-**Inline code** — live values in prose:
+**Inline code** - live values in prose:
 
 ```markdown
 The dataset has `r nrow(mtcars)` rows.
 Mean MPG: `r round(mean(mtcars$mpg), 1)`.
 ```
 
-Numbers update automatically when the data changes — no manual editing.
+Numbers update automatically when the data changes - no manual editing.
 
 \medskip
 **Demo →** `demos/quarto/01-minimal/`
@@ -639,7 +639,7 @@ Numbers update automatically when the data changes — no manual editing.
 
 ## 19. Cross-References and Citations
 
-**Figures, tables, equations** — use label prefixes:
+**Figures, tables, equations** - use label prefixes:
 
 ```markdown
 ![Flow diagram](flow.png){#fig-flow}    → cite as @fig-flow
@@ -647,7 +647,7 @@ Numbers update automatically when the data changes — no manual editing.
 $$ h(t|x) = h_0(t)e^{x^\top\beta} $$ {#eq-cox}  → @eq-cox
 ```
 
-**Citations** — add `.bib` in YAML, then cite inline:
+**Citations** - add `.bib` in YAML, then cite inline:
 
 ```yaml
 bibliography: references.bib
@@ -657,7 +657,7 @@ bibliography: references.bib
 The Cox model [@cox1972] is widely used in survival analysis.
 ```
 
-**Label prefixes are mandatory:** `fig-`, `tbl-`, `eq-`, `sec-` — wrong prefix = broken reference.
+**Label prefixes are mandatory:** `fig-`, `tbl-`, `eq-`, `sec-` - wrong prefix = broken reference.
 
 **Demo →** `demos/quarto/02-crossrefs/`
 
@@ -674,13 +674,13 @@ The Cox model [@cox1972] is widely used in survival analysis.
 | Book | project `book` | `quarto render` | Thesis, textbook |
 | EPUB | `epub` | `--to epub` | Mobile reading |
 
-All formats share one source — switching is a YAML change, not a rewrite.
+All formats share one source - switching is a YAML change, not a rewrite.
 
-## 21. Slides — RevealJS vs Beamer
+## 21. Slides - RevealJS vs Beamer
 
 ::: {.columns}
 ::: {.column width="50%"}
-**RevealJS** — browser slides
+**RevealJS** - browser slides
 
 ```yaml
 format:
@@ -696,7 +696,7 @@ format:
 - Interactive elements (Observable)
 :::
 ::: {.column width="50%"}
-**Beamer** — PDF slides
+**Beamer** - PDF slides
 
 ```yaml
 format:
@@ -741,7 +741,7 @@ quarto create project website my-site
 :::
 ::: {.column width="55%"}
 ```yaml
-# _quarto.yml — shared config
+# _quarto.yml - shared config
 project:
   type: website     # or: book, default
   output-dir: _output
@@ -763,7 +763,7 @@ format:
 :::
 :::
 
-**Demo →** `demos/quarto-lecture/` — 01-report, 02-slides, 03-website, 04-book, 05-template
+**Demo →** `demos/quarto-lecture/` - 01-report, 02-slides, 03-website, 04-book, 05-template
 
 ## 23. Templates
 
@@ -779,7 +779,7 @@ quarto use template owner/repository
 
 **Workflow:**
 
-1. Render unchanged — verify it compiles
+1. Render unchanged - verify it compiles
 2. Edit YAML (title, author, date)
 3. Render again
 4. Replace body content
@@ -787,9 +787,9 @@ quarto use template owner/repository
 
 **Useful repos:**
 
-- `quarto-journals` — journal formats
-- `quarto-thesis` — thesis template
-- `quarto-revealjs-clean` — clean slides
+- `quarto-journals` - journal formats
+- `quarto-thesis` - thesis template
+- `quarto-revealjs-clean` - clean slides
 :::
 ::: {.column width="50%"}
 **Create your own template:**
@@ -804,7 +804,7 @@ my-template/
       theme.scss    ← HTML theme
 ```
 
-A template is just a `.qmd` file with a custom format — share it with `quarto use template`.
+A template is just a `.qmd` file with a custom format - share it with `quarto use template`.
 
 **Demo →** `demos/quarto-lecture/05-template/`
 :::
@@ -816,7 +816,7 @@ A template is just a `.qmd` file with a custom format — share it with `quarto 
 ::: {.column width="55%"}
 | Problem | Where to look |
 |---|---|
-| YAML fails | indentation — 2 spaces, no tabs |
+| YAML fails | indentation - 2 spaces, no tabs |
 | Figure missing | relative path from `.qmd` |
 | Cross-ref broken | correct prefix: `fig-`, `tbl-`, `eq-` |
 | PDF fails | run `quarto check`; LaTeX engine |
@@ -850,20 +850,20 @@ quarto use template owner/repo
 :::
 :::
 
-## 25. Lab — Build Your Own Templates
+## 25. Lab - Build Your Own Templates
 
-**3 hours remaining — build from scratch in pairs or solo:**
+**3 hours remaining - build from scratch in pairs or solo:**
 
 | Task | Output | Key concepts |
 |---|---|---|
-| **1** — Minimal report | HTML + PDF | YAML, Markdown, code chunk |
-| **2** — Slide deck | RevealJS or Beamer | `slide-level`, themes |
-| **3** — Website | HTML site | `_quarto.yml`, navbar |
-| **4** — Book / thesis chapter | HTML + PDF | chapters, cross-refs |
-| **5** — eBook | EPUB | `epub` format, covers |
-| **6** — Custom template | reusable format | `_extensions/`, custom \LaTeX{} |
+| **1** - Minimal report | HTML + PDF | YAML, Markdown, code chunk |
+| **2** - Slide deck | RevealJS or Beamer | `slide-level`, themes |
+| **3** - Website | HTML site | `_quarto.yml`, navbar |
+| **4** - Book / thesis chapter | HTML + PDF | chapters, cross-refs |
+| **5** - eBook | EPUB | `epub` format, covers |
+| **6** - Custom template | reusable format | `_extensions/`, custom \LaTeX{} |
 
 \medskip
-**Start from `demos/quarto-lecture/` — one folder per task.**
+**Start from `demos/quarto-lecture/` - one folder per task.**
 
 Each output must have: a title page, one figure with caption and cross-reference, one equation, and a bibliography entry.
