@@ -49,7 +49,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE, warning = FALSE, message = FALS
 
 # Part 1 - Scientific Writing with \LaTeX{}
 
-## 1. A Brief History
+## A Brief History
 
 ::: {.columns}
 ::: {.column width="40%"}
@@ -77,7 +77,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE, warning = FALSE, message = FALS
 :::
 :::
 
-## 2. \LaTeX{} is not Overleaf!
+## \LaTeX{} is not Overleaf!
 
 For many students, **Overleaf = LaTeX** but they are not the same thing!
 
@@ -106,18 +106,15 @@ For many students, **Overleaf = LaTeX** but they are not the same thing!
 \medskip
 **Analogy:** \LaTeX{} is the engine. Overleaf is the car. Swap the car - the engine stays the same.
 
-## 3. Why \LaTeX{}?
+## Why \LaTeX{}?
 
-::: {.columns}
-::: {.column width="50%"}
+
 **The problem with Word**
 
 - Copy-paste figures from R → manual update on every change
 - `final_v3_FINAL_revised.docx`
 - Math typesetting is painful
 
-:::
-::: {.column width="60%"}
 | Feature | Word | \LaTeX{} |
 |---|---|---|
 | Typesetting | Medium | Excellent |
@@ -127,13 +124,8 @@ For many students, **Overleaf = LaTeX** but they are not the same thing!
 | Version control | Hard | Easy |
 | Journal templates | Limited | Extensive |
 
-:::
-:::
 
-
-
-
-## 4. Where to Write \LaTeX{} - Platforms
+## Where to Write \LaTeX{} - Platforms
 
 | Platform | Type | Best for |
 |---|---|---|
@@ -150,7 +142,7 @@ For many students, **Overleaf = LaTeX** but they are not the same thing!
 
 ---
 
-## 5. Why Document Classes?
+## Why Document Classes?
 
 `\documentclass` is the first decision - it sets the layout, section hierarchy, and all defaults.
 
@@ -184,7 +176,7 @@ The class file controls everything - margins, fonts, title format, header/footer
 :::
 :::
 
-## 6. Document Structure
+## Document Structure
 
 ```latex
 \documentclass[12pt, a4paper]{article}   % (1) class
@@ -213,7 +205,7 @@ Text here. Cite with \parencite{cox1972}.
 \end{document}
 ```
 
-## 7. How to Compile
+## How to Compile
 
 ::: {.columns}
 ::: {.column width="52%"}
@@ -241,7 +233,7 @@ latexmk -xelatex paper.tex
 :::
 :::
 
-## 8. Mathematical Notation
+## Mathematical Notation
 
 ::: {.columns}
 ::: {.column width="58%"}
@@ -287,10 +279,8 @@ latexmk -xelatex paper.tex
 :::
 :::
 
-## 9. Diagrams - TikZ and Alternatives
+## Diagrams - TikZ and Alternatives
 
-::: {.columns}
-::: {.column width="50%"}
 **TikZ** - standard \LaTeX{} diagram package
 
 ```latex
@@ -308,21 +298,9 @@ latexmk -xelatex paper.tex
 ```
 
 Other uses: DAGs, survival trees, neural nets, timelines.
-:::
-::: {.column width="50%"}
-**Alternatives in R / Quarto**
 
-| Tool | Best for |
-|---|---|
-| **DiagrammeR** | Flowcharts, networks |
-| **ggdag** | Causal DAGs |
-| **ggraph** | Graph visualization |
-| **Mermaid** | Quick diagrams in `.qmd` |
 
-:::
-:::
-
-## 10. Debugging with AI Coding Agents
+## Debugging with AI Coding Agents
 
 Modern AI agents (Claude, Codex, GitHub Copilot, Cursor) accelerate \LaTeX{} and Quarto debugging.
 
@@ -348,7 +326,7 @@ What is wrong and how do I fix it?
 
 **Key rule:** never paste the entire document - isolate the failing block first.
 
-## 11. AI-Assisted Debugging Workflow
+## AI-Assisted Debugging Workflow
 
 ```{=latex}
 \begin{center}
@@ -390,7 +368,7 @@ What is wrong and how do I fix it?
 
 # Part 2 - Quarto for Reproducible Publishing
 
-## 12. From \LaTeX{} to Quarto - Why?
+## From \LaTeX{} to Quarto - Why?
 
 
 | \LaTeX{} | Quarto |
@@ -405,7 +383,7 @@ What is wrong and how do I fix it?
 **Quarto = \LaTeX{} quality + reproducible code + multiple outputs from one source**
 
 
-## 13. What Quarto Solves
+## What Quarto Solves
 
 Quarto turns one plain-text `.qmd` source into many publishable outputs.
 
@@ -420,26 +398,9 @@ Quarto turns one plain-text `.qmd` source into many publishable outputs.
 
 **One source file → many targets. No copy-paste.**
 
-## 14. Engines, Compilers and Install
+## Compilers and Install
 
-::: {.columns}
-::: {.column width="55%"}
-**Render pipeline:**
 
-```
-.qmd → knitr (R) ──┐
-                   ├→ .md → Pandoc → HTML / docx
-.qmd → jupyter ───┘              └→ xelatex → PDF
-```
-
-| Layer | Tool | Role |
-|---|---|---|
-| Computation | `knitr` / `jupyter` | Run code, embed output |
-| Markdown → HTML | Pandoc | Convert markup |
-| Markdown → PDF | `xelatex` | Compile \LaTeX{} |
-| Orchestrator | Quarto CLI | Ties all layers |
-:::
-::: {.column width="45%"}
 **Install check:**
 
 ```bash
@@ -457,10 +418,8 @@ quarto preview report.qmd  # live
 ```
 
 `quarto check` shows which engines are installed and working.
-:::
-:::
 
-## 15. File Anatomy
+## File Anatomy
 
 Every `.qmd` file has three layers:
 
@@ -504,24 +463,12 @@ Rule: write once → render to any format.
 :::
 :::
 
-## 16. Markdown - The Prose Layer
+## Markdown - The Prose Layer
 
 **Markdown** (J. Gruber, 2004) - lightweight markup, readable as plain text, converts to HTML/PDF via Pandoc.
 
-::: {.columns}
-::: {.column width="50%"}
-**Relation to \LaTeX{}**
+- In Quarto: Markdown is the prose layer. \LaTeX{} runs underneath for PDF.
 
-| Aspect | \LaTeX{} | Markdown |
-|---|---|---|
-| Design goal | Precision | Readability |
-| Math | Native | Via \LaTeX{} engine |
-| Output | PDF mainly | Many (via Pandoc) |
-| Verbosity | High | Minimal |
-
-In Quarto: Markdown is the prose layer. \LaTeX{} runs underneath for PDF.
-:::
-::: {.column width="50%"}
 **Syntax comparison**
 
 | Element | \LaTeX{} | Markdown |
@@ -533,10 +480,9 @@ In Quarto: Markdown is the prose layer. \LaTeX{} runs underneath for PDF.
 | Link | `\href{u}{t}` | `[t](u)` |
 | Code | `\texttt{x}` | `` `x` `` |
 | Image | `\includegraphics` | `![](path)` |
-:::
-:::
 
-## 17. YAML - The Control Layer
+
+## YAML - The Control Layer
 
 YAML controls the entire output without touching the content.
 
@@ -548,14 +494,12 @@ date: today
 format:
   html:
     toc: true
-    code-fold: true
     theme: cosmo
   pdf:
     toc: true
     number-sections: true
     pdf-engine: xelatex
 execute:
-  warning: false
   message: false
 bibliography: references.bib
 ---
@@ -563,10 +507,8 @@ bibliography: references.bib
 
 Change the `format` block → completely different output, same source. Add a format → get a new output for free.
 
-## 18. Code Chunks and Inline Code
+## Code Chunks and Inline Code
 
-::: {.columns}
-::: {.column width="52%"}
 **Chunk options** (`#|` syntax - same for R, Python, Julia):
 
 | Option | Effect |
@@ -578,32 +520,8 @@ Change the `format` block → completely different output, same source. Add a fo
 | `tbl-cap` | table caption |
 | `warning` | show / hide warnings |
 
-````markdown
-```{r}
-#| label: fig-km
-#| fig-cap: "Kaplan-Meier curve."
-#| echo: false
-survfit(Surv(time, status) ~ 1, data = df) |>
-  plot()
-```
-````
-:::
-::: {.column width="48%"}
-**Inline code** - live values in prose:
 
-```markdown
-The dataset has `r nrow(mtcars)` rows.
-Mean MPG: `r round(mean(mtcars$mpg), 1)`.
-```
-
-Numbers update automatically when the data changes - no manual editing.
-
-\medskip
-**Demo →** `demos/quarto/01-minimal/`
-:::
-:::
-
-## 19. Cross-References and Citations
+## Cross-References and Citations
 
 **Figures, tables, equations** - use label prefixes:
 
@@ -627,7 +545,7 @@ The Cox model [@cox1972] is widely used in survival analysis.
 
 **Demo →** `demos/quarto/02-crossrefs/`
 
-## 20. Output Formats
+## Output Formats
 
 | Format | YAML key | Render command | Best for |
 |---|---|---|---|
@@ -642,7 +560,7 @@ The Cox model [@cox1972] is widely used in survival analysis.
 
 All formats share one source - switching is a YAML change, not a rewrite.
 
-## 21. Slides - RevealJS vs Beamer
+## Slides - RevealJS vs Beamer
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -682,7 +600,7 @@ format:
 
 **Demo →** `demos/quarto/03-slides/` and `demos/quarto-lecture/02-slides/`
 
-## 22. Projects and `_quarto.yml`
+## Projects and `_quarto.yml`
 
 Use a **project** when you have more than one file.
 
@@ -711,14 +629,12 @@ quarto create project website my-site
 project:
   type: website     # or: book, default
   output-dir: _output
-
 website:
   title: "My Course"
   navbar:
     left:
       - index.qmd
       - methods.qmd
-
 format:
   html:
     toc: true
@@ -731,7 +647,7 @@ format:
 
 **Demo →** `demos/quarto-lecture/` - 01-report, 02-slides, 03-website, 04-book, 05-template
 
-## 23. Templates
+## Templates
 
 Use templates when the same structure repeats across documents.
 
@@ -776,47 +692,7 @@ A template is just a `.qmd` file with a custom format - share it with `quarto us
 :::
 :::
 
-## 24. Debugging Checklist
-
-::: {.columns}
-::: {.column width="55%"}
-| Problem | Where to look |
-|---|---|
-| YAML fails | indentation - 2 spaces, no tabs |
-| Figure missing | relative path from `.qmd` |
-| Cross-ref broken | correct prefix: `fig-`, `tbl-`, `eq-` |
-| PDF fails | run `quarto check`; LaTeX engine |
-| Citation missing | `.bib` path + exact cite key |
-| Code chunk fails | engine installed, package loaded |
-
-**HTML works but PDF fails?**
-
-```bash
-quarto render report.qmd --to html  # isolate
-quarto render report.qmd --to pdf
-```
-
-Raw HTML (`<div>`, widgets) breaks PDF output.
-:::
-::: {.column width="45%"}
-**Key commands:**
-
-```bash
-quarto --version
-quarto check
-quarto render report.qmd
-quarto render report.qmd --to pdf
-quarto preview report.qmd
-quarto create project book my-book
-quarto create project website my-site
-quarto use template owner/repo
-```
-
-**When stuck:** use an AI agent with the exact error + minimal snippet (see slide 10).
-:::
-:::
-
-## 25. Lab - Build Your Own Templates
+## Lab - Build Your Own Templates
 
 **3 hours remaining - build from scratch in pairs or solo:**
 
@@ -832,4 +708,3 @@ quarto use template owner/repo
 \medskip
 **Start from `demos/quarto-lecture/` - one folder per task.**
 
-Each output must have: a title page, one figure with caption and cross-reference, one equation, and a bibliography entry.
